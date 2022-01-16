@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> DUS - {% block title %} {% endblock title%}</title>
+    <link rel="stylesheet" href="{% static 'assets/css/jstools/homepage-output.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+   
+  {% if messages %}
+  {% for message in messages %}
+  {% if  message.tags == 'success' %}
+  <div id="message" class="bg-teal-100 border border-teal-400 text-teal-900 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{message}}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <svg id="close-message" class="fill-current h-6 w-6 text-teal-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+    </span>
+  </div>
+  {% elif message.tags == 'error' %}
+  <div id="message" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{message}}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <svg id="close-message" class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+    </span>
+  </div>
+  {% elif message.tags == 'info' %}
+  <div id="message" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{message}}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <svg id="close-message" class="fill-current h-6 w-6 text-blue-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+    </span>
+  </div>
+  {% elif message.tags == 'warning' %}
+  <div id="message" class="bg-orange-100 border border-orange-400 text-orange-700 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{message}}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <svg id="close-message" class="fill-current h-6 w-6 text-orange-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+    </span>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <nav class="bg-gray-800 font-open_sans">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-center sm:justify-between h-14">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button id="hamburger-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <!--
+              Icon when menu is closed.
+  
+              Heroicon name: outline/menu
+  
+              Menu open: "hidden", Menu closed: "block"
+            -->
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <!--
+              Icon when menu is open.
+  
+              Heroicon name: outline/x
+  
+              Menu open: "block", Menu closed: "hidden"
+            -->
+            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex-shrink-0 flex items-center">
+          <h1 class="hidden sm:block lg:block text-3xl text-white"><a href="{% url 'home' %}">Shortner</a></h1>
+          <a href="#" class="hidden sm:block ml-10 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About us</a>
+          <a href="#" class="hidden sm:block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact us</a>
+        </div>
+        <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-end">
+          <div class="hidden sm:block sm:ml-6">
+            <div class="flex space-x-4">
+              {% if not user.is_authenticated %}
+              <a href="{% url 'accounts:login' %}" class="hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Login</a>
+              <a href="{% url 'accounts:signup' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Signup</a>
+              {% else %}
+              <p class="text-white px-3 py-2 text-sm font-medium">Welcome, {{request.user.username}}</p>
+              <a href="{% url 'accounts:logout' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+              {% endif %}
+
+              
+            </div>
+          </div>
+        </div>
+        <div class="sm:hidden absolute" id="mobile-logo">
+              <a href="#"><h1 class="text-3xl text-white">Shortner</h1></a>
+        </div>
+      </div>
+    </div>
+    <div class="sm:hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="#" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium">About us</a>
+        <a href="#" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium">Contact us</a>
+        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        {% if not user.is_authenticated %}
+        <a href="{% url 'accounts:login' %}" class="text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Login</a>  
+        <a href="{% url 'accounts:signup' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Signup</a>
+        {% endif %}
+      </div>
+  </nav>
+
+{% block body %}
+
+
+
+{% endblock body %}
+
+<footer class="py-2 text-white bg-gray-700 w-full flex font-open_sans">
+  <div class="w-full px-2 sm:px-6 lg:px-8 flex justify-between">
+  <p>2022 DUS.All Rights Reserved</p>
+  <div class="flex">
+    <ul class="flex">
+      <li class="mx-3"><a href="">Terms of service</a></li>
+      <li class="mx-2"><a href="">Privacy Policy</a></li>
+      <li class="mx-2"><a href="">Security</a></li>
+      <li class="mx-2"><a href="">Sitemap</a></li>
+    </ul>
+  </div>
+
+  </div>
+</footer>
+
+
+<script>
+  function handleMessages() {
+    let message_close_button = document.getElementById("close-message");
+    if(message_close_button) {
+      message_close_button.addEventListener("click", function() {
+        document.getElementById("message").style.display = 'none';
+      });
+    };
+  }
+  function handleNavbar() {
+    let hamburger_btn  = document.querySelector("#hamburger-btn");
+    let mobile_menu  = document.querySelector("#mobile-menu");
+
+    hamburger_btn.addEventListener("click", () => {
+      mobile_menu.classList.toggle("hidden");
+    })
+  }
+
+  handleMessages();
+  handleNavbar();
+</script>
+
+</body>
+</html>

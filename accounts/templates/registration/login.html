@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %} LogIn {% endblock title %}
+{% load static %}
+{% block body %}
+
+<!-- component -->
+<div class="bg-grey-lighter min-h-screen flex flex-col">
+  <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+    <form action="{% url 'accounts:login' %}" method="POST" novalidate class="bg-white px-6 py-8 rounded shadow-lg text-black w-full">
+          <h1 class="mb-8 text-3xl text-center">Login</h1>
+          {% csrf_token  %}
+          
+            {% if form.errors %}
+              <input class="block border border-red-500 w-full p-3 rounded" 
+                    type="text"
+                    name="username" 
+                    autofocus="" 
+                    autocapitalize="none" 
+                    autocomplete="username" 
+                    maxlength="150" 
+                    placeholder="Username" 
+                    required="" 
+                    id="id_username" />
+                    <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 mb-4">
+                      {{form.errors.username}}
+                      {{form.non_field_errors}}
+                    </span>
+              {% else %} 
+                <input class="block border border-gray-400 w-full p-3 rounded mb-4" 
+                  type="text"
+                  name="username" 
+                  autofocus="" 
+                  autocapitalize="none" 
+                  autocomplete="username" 
+                  maxlength="150" 
+                  placeholder="Username" 
+                  required="" 
+                  id="id_username" />
+            {% endif %}
+          
+          {% if form.errors %}
+          <input 
+              type="password"
+              class="block border border-red-500 w-full p-3 rounded"
+              name="password" 
+              autocomplete="current-password" 
+              placeholder="Password" 
+              required=""
+              id="id_password" />
+              <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 mb-4">
+                {{form.errors.password}}
+              </span>
+          {% else %} 
+          <input 
+              type="password"
+              class="block border border-gray-400 w-full p-3 rounded mb-4"
+              name="password" 
+              autocomplete="current-password" 
+              placeholder="Password" 
+              required=""
+              id="id_password" />
+          {% endif %}
+          <button
+              type="submit"
+              class="w-full text-center py-3 rounded bg-slate-900 text-white hover:bg-slate-800 focus:outline-none my-1"
+          >Login</button>
+    </form>
+      <div class="text-grey-dark mt-6">
+          Don't have an account? 
+          <a class="no-underline border-b border-blue text-blue" href="{% url 'accounts:signup' %}">
+              SignUp
+          </a>
+      </div>
+  </div>
+</div>
+{% endblock body %}

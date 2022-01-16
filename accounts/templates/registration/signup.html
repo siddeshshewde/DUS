@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %} SignUp{% endblock title %}
+{% block body %}
+
+<!-- component -->
+<div class="bg-grey-lighter min-h-screen flex flex-col">
+    <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <form class="bg-white px-6 py-8 rounded shadow-md text-black w-full" action="{% url 'accounts:signup' %}" method="POST" novalidate>
+        
+            <h1 class="mb-8 text-3xl text-center">Sign up</h1>
+            {% csrf_token  %}
+       
+            <!-- Username -->
+            {% if form.username.errors %} 
+            <input class="block border border-red-500 w-full p-3 rounded" type="text" name="username" maxlength="150" autofocus="" placeholder="Username" required="" id="id_username">
+            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 mb-4">
+                {{ form.username.errors }}
+            </span>
+            {% else %}
+            <input class="block border border-gray-400 w-full p-3 rounded mb-4" type="text" name="username" maxlength="150" autofocus="" placeholder="Username" required="" id="id_username">
+            {% endif %}
+
+            <!-- Email -->
+            {% if form.email.errors %} 
+            <input class="block border border-red-500 w-full p-3 rounded" type="email" name="email" placeholder="Email Address" required="" id="id_email">
+            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 mb-4">
+                {{ form.email.errors }}
+            </span>
+            {% else %}
+            <input class="block border border-gray-400 w-full p-3 rounded mb-4" type="email" name="email" placeholder="Email Address" required="" id="id_email">
+            {% endif %}
+
+            <!-- Password -->
+            {% if form.password1.errors %} 
+            <input  class="block border border-red-500 w-full p-3 rounded" type="password" name="password1" placeholder="Password"  required="" id="id_password1">
+            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 mb-4">
+                {{ form.password1.errors }}
+            </span>
+            {% else %}
+            <input  class="block border border-gray-400 w-full p-3 rounded mb-4" type="password" name="password1" autocomplete="new-password" placeholder="Password"  required="" id="id_password1">
+            {% endif %}
+
+            <!-- Confirm Password -->
+            {% if form.password2.errors %} 
+            <input  class="block border border-red-500 w-full p-3 rounded" type="password" name="password2" placeholder="Password"  required="" id="id_password2">
+            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 mb-4">
+                {{ form.password2.errors }}
+            </span>
+            {% else %}
+            <input  class="block border border-gray-400 w-full p-3 rounded mb-4" type="password" name="password2" placeholder="Confirm Password"  required="" id="id_password2">
+            {% endif %}
+            <button
+                type="submit"
+                class="w-full text-center py-3 rounded bg-slate-900 text-white hover:bg-slate-800 focus:outline-none my-1"
+            >Create Account</button>
+
+            <div class="text-center text-sm text-gray-700 mt-4">
+                By signing up, you agree to the 
+                <a class="no-underline border-b border-gray-700 text-gray-700" href="#">
+                    Terms of Service
+                </a> and 
+                <a class="no-underline border-b border-gray-700 text-gray-700" href="#">
+                    Privacy Policy
+                </a>
+            </div>
+
+        <div class="text-gray-700 mt-6">
+            Already have an account? 
+            <a class="no-underline border-b border-blue-500 text-blue" href="{% url 'accounts:login' %}">
+                Log in
+            </a>.
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
